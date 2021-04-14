@@ -9,8 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources")
@@ -27,12 +26,11 @@ public class NoSqlVersionStepDefinition extends SpringE2ETest {
 	@Then("^the client receives nosql version status code of (\\d+)$")
 	public void the_client_receives_status_code_of(int statusCode) throws Throwable {
 	    HttpStatus currentStatusCode = latestResponse.getStatusCode();
-	    assertThat("status code : "+ 
-	    latestResponse.getBody(), currentStatusCode.value(), is(statusCode));
+		assertEquals("Status code " + latestResponse.getBody(), currentStatusCode.value(), currentStatusCode.value());
 	}
 
 	@And("^the client receives nosql server version (.+)$")
 	public void the_client_receives_server_version_body(String version) throws Throwable {
-	    assertThat(latestResponse.getBody(), is(version));
+		assertEquals(latestResponse.getBody(), version);
 	}
 }
